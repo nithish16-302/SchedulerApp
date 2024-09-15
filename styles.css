@@ -2,10 +2,12 @@
 
 body {
     font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
 }
 
 .container {
-    max-width: 800px;
+    max-width: 100%;
     margin: 0 auto;
     padding: 20px;
 }
@@ -45,12 +47,11 @@ button {
 }
 
 .table-container {
-    overflow: auto; /* Ensure content can scroll if needed */
-    max-height: 400px; /* Adjust height as needed for display */
     border: 2px solid #ddd;
     border-radius: 5px;
     margin-top: 20px;
     padding: 10px;
+    overflow: visible; /* Ensure no scrolling */
 }
 
 table {

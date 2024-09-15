@@ -101,7 +101,6 @@
             <button type="submit">Add to Schedule</button>
         </form>
 
-        <h2>Schedule</h2>
         <div class="table-container">
             <table id="scheduleTable">
                 <thead>
@@ -114,18 +113,18 @@
                         <th id="friday-header">Friday</th>
                         <th id="saturday-header">Saturday</th>
                         <th id="sunday-header">Sunday</th>
+                        <th>Action</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <!-- Schedule entries will be added here -->
+                    <!-- Rows will be added here dynamically -->
                 </tbody>
             </table>
         </div>
 
         <button id="exportButton">Export to PNG</button>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
+    <script src="html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
