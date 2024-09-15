@@ -1,5 +1,37 @@
 // script.js
 
+// Function to format a date as DD-MM-YYYY
+function formatDate(date) {
+    const day = String(date.getDate()).padStart(2, '0');
+    const month = String(date.getMonth() + 1).padStart(2, '0');
+    const year = date.getFullYear();
+    return `${day}-${month}-${year}`;
+}
+
+// Function to get the date of the next occurrence of a given day
+function getNextWeekDate(dayOfWeek) {
+    const today = new Date();
+    const daysOfWeek = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
+    const dayIndex = daysOfWeek.indexOf(dayOfWeek);
+
+    let nextDate = new Date(today.setDate(today.getDate() + ((dayIndex + 7 - today.getDay()) % 7)));
+    return formatDate(nextDate);
+}
+
+// Function to set the weekday headers in the table
+function setWeekDates() {
+    document.getElementById('monday-header').textContent = `Monday (${getNextWeekDate('Monday')})`;
+    document.getElementById('tuesday-header').textContent = `Tuesday (${getNextWeekDate('Tuesday')})`;
+    document.getElementById('wednesday-header').textContent = `Wednesday (${getNextWeekDate('Wednesday')})`;
+    document.getElementById('thursday-header').textContent = `Thursday (${getNextWeekDate('Thursday')})`;
+    document.getElementById('friday-header').textContent = `Friday (${getNextWeekDate('Friday')})`;
+    document.getElementById('saturday-header').textContent = `Saturday (${getNextWeekDate('Saturday')})`;
+    document.getElementById('sunday-header').textContent = `Sunday (${getNextWeekDate('Sunday')})`;
+}
+
+// Set the dates when the script loads
+setWeekDates();
+
 document.getElementById('scheduleForm').addEventListener('submit', function(event) {
     event.preventDefault();
     
@@ -23,12 +55,31 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
     nameCell.textContent = name;
     newRow.appendChild(nameCell);
 
-    // Add times for each day
+    // Add times for each day with color coding
     weekDays.forEach(({ time }) => {
         const timeCell = document.createElement('td');
         timeCell.textContent = time;
+        
+        // Apply color coding based on time value
+        if (time === '8AM to 5PM') {
+            timeCell.classList.add('time-light-green');
+        } else if (time === '12PM to 9PM') {
+            timeCell.classList.add('time-peach');
+        }
+        
         newRow.appendChild(timeCell);
     });
+
+    // Add a delete button to the row
+    const deleteCell = document.createElement('td');
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+    deleteButton.classList.add('delete-button');
+    deleteButton.addEventListener('click', function() {
+        tableBody.removeChild(newRow);
+    });
+    deleteCell.appendChild(deleteButton);
+    newRow.appendChild(deleteCell);
 
     // Append the new row to the table body
     tableBody.appendChild(newRow);
@@ -38,7 +89,19 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 });
 
 document.getElementById('exportButton').addEventListener('click', function() {
-    const table = document.getElementById('scheduleTable');
-    const workbook = XLSX.utils.table_to_book(table, { sheet: "Schedule" });
-    XLSX.writeFile(workbook, 'schedule.xlsx');
+    // Hide delete buttons from the table before exporting
+    const deleteButtons = document.querySelectorAll('.delete-button');
+    deleteButtons.forEach(button => button.style.display = 'none');
+
+    html2canvas(document.getElementById('scheduleTable'), { scale: 2 }).then(canvas => {
+        const link = document.createElement('a');
+        link.download = 'schedule.png';
+        link.href = canvas.toDataURL('image/png');
+        link.click();
+        
+        // Show delete buttons again after exporting
+        deleteButtons.forEach(button => button.style.display = 'block');
+    }).catch(error => {
+        console.error('Error generating image:', error);
+    });
 });

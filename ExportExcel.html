@@ -35,7 +35,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -46,7 +45,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -57,7 +55,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -68,7 +65,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -79,7 +75,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -90,7 +85,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -101,7 +95,6 @@
                     <option value="8AM to 5PM">8AM to 5PM</option>
                     <option value="12PM to 9PM">12PM to 9PM</option>
                     <option value="11AM to 8PM">11AM to 8PM</option>
-                    <option value="WeekOff">Week Off</option>
                 </select>
             </div>
 
@@ -109,28 +102,30 @@
         </form>
 
         <h2>Schedule</h2>
-        <table id="scheduleTable">
-            <thead>
-                <tr>
-                    <th>Name</th>
-                    <th>Monday</th>
-                    <th>Tuesday</th>
-                    <th>Wednesday</th>
-                    <th>Thursday</th>
-                    <th>Friday</th>
-                    <th>Saturday</th>
-                    <th>Sunday</th>
-                </tr>
-            </thead>
-            <tbody>
-                <!-- Schedule entries will be added here -->
-            </tbody>
-        </table>
+        <div class="table-container">
+            <table id="scheduleTable">
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th id="monday-header">Monday</th>
+                        <th id="tuesday-header">Tuesday</th>
+                        <th id="wednesday-header">Wednesday</th>
+                        <th id="thursday-header">Thursday</th>
+                        <th id="friday-header">Friday</th>
+                        <th id="saturday-header">Saturday</th>
+                        <th id="sunday-header">Sunday</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Schedule entries will be added here -->
+                </tbody>
+            </table>
+        </div>
 
-        <button id="exportButton">Export to Excel</button>
+        <button id="exportButton">Export to PNG</button>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.5.0-beta4/html2canvas.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
