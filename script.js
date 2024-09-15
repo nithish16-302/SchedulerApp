@@ -88,20 +88,34 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
     document.getElementById('scheduleForm').reset();
 });
 
-document.getElementById('exportButton').addEventListener('click', function() {
-    // Hide delete buttons from the table before exporting
-    const deleteButtons = document.querySelectorAll('.delete-button');
-    deleteButtons.forEach(button => button.style.display = 'none');
+// script.js
 
-    html2canvas(document.getElementById('scheduleTable'), { scale: 2 }).then(canvas => {
+document.getElementById('exportButton').addEventListener('click', function() {
+    // Hide the "Action" column before exporting
+    const actionColumnCells = document.querySelectorAll('td:last-child, th:last-child');
+    actionColumnCells.forEach(cell => cell.style.display = 'none');
+
+    // Create a new container to temporarily hold the table
+    const tableContainer = document.createElement('div');
+    tableContainer.style.position = 'absolute';
+    tableContainer.style.top = '-9999px';
+    tableContainer.style.left = '-9999px';
+    tableContainer.appendChild(document.getElementById('scheduleTable').cloneNode(true));
+    document.body.appendChild(tableContainer);
+
+    html2canvas(tableContainer, { scale: 2 }).then(canvas => {
         const link = document.createElement('a');
         link.download = 'schedule.png';
         link.href = canvas.toDataURL('image/png');
         link.click();
+
+        // Show the "Action" column again after exporting
+        actionColumnCells.forEach(cell => cell.style.display = '');
         
-        // Show delete buttons again after exporting
-        deleteButtons.forEach(button => button.style.display = 'block');
+        // Clean up the temporary container
+        document.body.removeChild(tableContainer);
     }).catch(error => {
         console.error('Error generating image:', error);
     });
 });
+
