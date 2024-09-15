@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Schedule Creation App</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Create Your Schedule</h1>
+        <form id="scheduleForm">
+            <label for="name">Name:</label>
+            <select id="name" name="name" required>
+                <option value="Nem">Nem</option>
+                <option value="Trishna">Trishna</option>
+                <option value="Shazia">Shazia</option>
+                <option value="Sofi">Sofi</option>
+                <option value="Banea">Banea</option>
+                <option value="Soro">Soro</option>
+                <option value="Anushka">Anushka</option>
+                <option value="Muantae">Muantae</option>
+                <option value="Wangasa">Wangasa</option>
+                <option value="Karishma">Karishma</option>
+                <option value="Kaveri">Kaveri</option>
+                <option value="Asad">Asad</option>
+            </select>
+
+            <h2>Select Timings for Each Weekday</h2>
+
+            <div class="weekday-row">
+                <label for="time-monday">Monday:</label>
+                <select id="time-monday" name="time-monday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <div class="weekday-row">
+                <label for="time-tuesday">Tuesday:</label>
+                <select id="time-tuesday" name="time-tuesday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <div class="weekday-row">
+                <label for="time-wednesday">Wednesday:</label>
+                <select id="time-wednesday" name="time-wednesday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <div class="weekday-row">
+                <label for="time-thursday">Thursday:</label>
+                <select id="time-thursday" name="time-thursday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <div class="weekday-row">
+                <label for="time-friday">Friday:</label>
+                <select id="time-friday" name="time-friday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <div class="weekday-row">
+                <label for="time-saturday">Saturday:</label>
+                <select id="time-saturday" name="time-saturday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <div class="weekday-row">
+                <label for="time-sunday">Sunday:</label>
+                <select id="time-sunday" name="time-sunday" required>
+                    <option value="1PM to 10PM">1PM to 10PM</option>
+                    <option value="8AM to 5PM">8AM to 5PM</option>
+                    <option value="12PM to 9PM">12PM to 9PM</option>
+                    <option value="11AM to 8PM">11AM to 8PM</option>
+                </select>
+            </div>
+
+            <button type="submit">Add to Schedule</button>
+        </form>
+
+        <h2>Schedule</h2>
+        <table id="scheduleTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Monday</th>
+                    <th>Tuesday</th>
+                    <th>Wednesday</th>
+                    <th>Thursday</th>
+                    <th>Friday</th>
+                    <th>Saturday</th>
+                    <th>Sunday</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Schedule entries will be added here -->
+            </tbody>
+        </table>
+
+        <button id="exportButton">Export to Excel</button>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
