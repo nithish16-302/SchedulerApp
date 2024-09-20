@@ -92,58 +92,52 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 
 document.getElementById('exportButton').addEventListener('click', function() {
     const table = document.getElementById('scheduleTable');
-        
-    // Get the table data and dimensions
+    // Get the table rows
     const rows = table.querySelectorAll('tr');
-    const rowCount = rows.length;
-    const colCount = rows[0].children.length;
 
-    // Create a canvas
+    // Create a canvas dynamically
     const canvas = document.createElement('canvas');
     const ctx = canvas.getContext('2d');
 
-    // Set canvas width and height based on table dimensions
-    const cellWidth = 200; // Set a fixed width for cells
-    const cellHeight = 50; // Set a fixed height for cells
-    const canvasWidth = cellWidth * colCount;
-    const canvasHeight = cellHeight * (rowCount - 1); // Excluding the "Action" row
+    // Set cell dimensions and calculate canvas size
+    const cellWidth = 200; // Width of each cell
+    const cellHeight = 50; // Height of each cell
+    const canvasWidth = cellWidth * (rows[0].children.length - 1); // Exclude Action th/td
+    const canvasHeight = cellHeight * (rows.length); // Export all rows, except action
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
-    // Set up some basic styles
+    // Set up font styles for text drawing
     ctx.font = '16px Arial';
     ctx.textAlign = 'center';
     ctx.textBaseline = 'middle';
-    ctx.fillStyle = '#000';
     ctx.strokeStyle = '#ddd';
     ctx.lineWidth = 1;
 
-    // Loop through rows and columns to draw the table (excluding Action row)
+    // Loop through rows (excluding Action th/td)
     rows.forEach((row, rowIndex) => {
-        // Skip the "Action" row if present (last row or specific condition)
-        if (row.classList.contains('action-row')) {
-            return; // Skip the "Action" row
-        }
-
         const cells = row.querySelectorAll('td, th');
+
+        // Check if the first cell is "Action" (remove Action th/td columns)
         cells.forEach((cell, cellIndex) => {
-            const text = cell.textContent;
+            // Skip the last "Action" column (if any)
+            if (cellIndex === cells.length - 1 && cell.textContent === 'Action') return;
+
+            const text = cell.textContent.trim();
             const x = cellIndex * cellWidth;
             const y = rowIndex * cellHeight;
 
-            // Get cell background color
-            const cellBackgroundColor = window.getComputedStyle(cell).backgroundColor;
+            // Get and persist background color
+            const bgColor = window.getComputedStyle(cell).backgroundColor || '#ffffff';
+            ctx.fillStyle = bgColor;
+            ctx.fillRect(x, y, cellWidth, cellHeight);  // Draw cell background
 
-            // Draw cell background
-            ctx.fillStyle = cellBackgroundColor || '#fff'; // Default to white if no color is specified
-            ctx.fillRect(x, y, cellWidth, cellHeight);
-
-            // Draw cell border
+            // Draw the cell border
             ctx.strokeRect(x, y, cellWidth, cellHeight);
 
             // Draw cell text
-            ctx.fillStyle = '#000';
-            ctx.fillText(text, x + cellWidth / 2, y + cellHeight / 2);
+            ctx.fillStyle = '#000';  // Text color
+            ctx.fillText(text, x + cellWidth / 2, y + cellHeight / 2);  // Centered text
         });
     });
 
