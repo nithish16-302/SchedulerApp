@@ -92,7 +92,7 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 
 document.getElementById('exportButton').addEventListener('click', function() {
     const table = document.getElementById('scheduleTable');
-    
+        
     // Get the table data and dimensions
     const rows = table.querySelectorAll('tr');
     const rowCount = rows.length;
@@ -106,7 +106,7 @@ document.getElementById('exportButton').addEventListener('click', function() {
     const cellWidth = 200; // Set a fixed width for cells
     const cellHeight = 50; // Set a fixed height for cells
     const canvasWidth = cellWidth * colCount;
-    const canvasHeight = cellHeight * rowCount;
+    const canvasHeight = cellHeight * (rowCount - 1); // Excluding the "Action" row
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
@@ -118,16 +118,24 @@ document.getElementById('exportButton').addEventListener('click', function() {
     ctx.strokeStyle = '#ddd';
     ctx.lineWidth = 1;
 
-    // Loop through rows and columns to draw the table
+    // Loop through rows and columns to draw the table (excluding Action row)
     rows.forEach((row, rowIndex) => {
+        // Skip the "Action" row if present (last row or specific condition)
+        if (row.classList.contains('action-row')) {
+            return; // Skip the "Action" row
+        }
+
         const cells = row.querySelectorAll('td, th');
         cells.forEach((cell, cellIndex) => {
             const text = cell.textContent;
             const x = cellIndex * cellWidth;
             const y = rowIndex * cellHeight;
 
+            // Get cell background color
+            const cellBackgroundColor = window.getComputedStyle(cell).backgroundColor;
+
             // Draw cell background
-            ctx.fillStyle = rowIndex === 0 ? '#ffffe0' : '#fff'; // Header background is light yellow
+            ctx.fillStyle = cellBackgroundColor || '#fff'; // Default to white if no color is specified
             ctx.fillRect(x, y, cellWidth, cellHeight);
 
             // Draw cell border
@@ -143,6 +151,6 @@ document.getElementById('exportButton').addEventListener('click', function() {
     const link = document.createElement('a');
     link.download = 'table_details.jpg';
     link.href = canvas.toDataURL('image/jpeg');
-    link.click();    
+    link.click();  
 });
 
