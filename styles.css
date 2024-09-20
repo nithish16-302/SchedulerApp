@@ -1,15 +1,17 @@
 /* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Arial', sans-serif;
+    background-color: #f4f4f9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
     margin: 0;
-    padding: 0;
 }
 
 .container {
-    max-width: 100%;
-    margin: 0 auto;
-    padding: 20px;
+    text-align: center;
 }
 
 h1, h2 {
@@ -55,8 +57,11 @@ button {
 }
 
 table {
-    width: 100%;
-    border-collapse: collapse; /* Collapse borders for a cleaner look */
+    margin: 0 auto;
+    width: 80%;
+    border-collapse: collapse;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 table, th, td {
@@ -64,19 +69,19 @@ table, th, td {
 }
 
 th {
-    background-color: #ffffe0; /* Light yellow */
-    padding: 10px;
-    text-align: left;
-    white-space: nowrap;
-    border-bottom: 2px solid #ddd; /* Border below header cells */
+    background-color: lightyellow;
+    padding: 12px;
+    font-size: 16px;
+    text-transform: uppercase;
+    color: #333;
+    border-bottom: 2px solid #ddd;
 }
 
 td {
-    padding: 10px;
-    text-align: left;
-    white-space: nowrap;
-    background-color: white; /* White background for cells */
-    border-bottom: 2px solid #ddd; /* Border below data cells */
+    padding: 12px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    text-align: center;
 }
 
 tr:nth-child(even) {
@@ -118,22 +123,31 @@ h1 {
     margin-bottom: 20px;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-th, td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
 button {
     padding: 10px 15px;
     font-size: 16px;
     cursor: pointer;
     display: block;
     margin: 0 auto;
+}
+
+/* Table hover effect */
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* Button styling */
+button {
+    margin-top: 20px;
+    padding: 10px 20px;
+    font-size: 16px;
+    color: white;
+    background-color: #4CAF50;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #45a049;
 }
