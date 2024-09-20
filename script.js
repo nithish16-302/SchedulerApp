@@ -91,31 +91,58 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
 // script.js
 
 document.getElementById('exportButton').addEventListener('click', function() {
-    // Hide the "Action" column before exporting
-    const actionColumnCells = document.querySelectorAll('td:last-child, th:last-child');
-    actionColumnCells.forEach(cell => cell.style.display = 'none');
+    const table = document.getElementById('scheduleTable');
+    
+    // Get the table data and dimensions
+    const rows = table.querySelectorAll('tr');
+    const rowCount = rows.length;
+    const colCount = rows[0].children.length;
 
-    // Create a new container to temporarily hold the table
-    const tableContainer = document.createElement('div');
-    tableContainer.style.position = 'absolute';
-    tableContainer.style.top = '-9999px';
-    tableContainer.style.left = '-9999px';
-    tableContainer.appendChild(document.getElementById('scheduleTable').cloneNode(true));
-    document.body.appendChild(tableContainer);
+    // Create a canvas
+    const canvas = document.createElement('canvas');
+    const ctx = canvas.getContext('2d');
 
-    html2canvas(tableContainer, { scale: 2 }).then(canvas => {
-        const link = document.createElement('a');
-        link.download = 'schedule.png';
-        link.href = canvas.toDataURL('image/png');
-        link.click();
+    // Set canvas width and height based on table dimensions
+    const cellWidth = 200; // Set a fixed width for cells
+    const cellHeight = 50; // Set a fixed height for cells
+    const canvasWidth = cellWidth * colCount;
+    const canvasHeight = cellHeight * rowCount;
+    canvas.width = canvasWidth;
+    canvas.height = canvasHeight;
 
-        // Show the "Action" column again after exporting
-        actionColumnCells.forEach(cell => cell.style.display = '');
-        
-        // Clean up the temporary container
-        document.body.removeChild(tableContainer);
-    }).catch(error => {
-        console.error('Error generating image:', error);
+    // Set up some basic styles
+    ctx.font = '16px Arial';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillStyle = '#000';
+    ctx.strokeStyle = '#ddd';
+    ctx.lineWidth = 1;
+
+    // Loop through rows and columns to draw the table
+    rows.forEach((row, rowIndex) => {
+        const cells = row.querySelectorAll('td, th');
+        cells.forEach((cell, cellIndex) => {
+            const text = cell.textContent;
+            const x = cellIndex * cellWidth;
+            const y = rowIndex * cellHeight;
+
+            // Draw cell background
+            ctx.fillStyle = rowIndex === 0 ? '#ffffe0' : '#fff'; // Header background is light yellow
+            ctx.fillRect(x, y, cellWidth, cellHeight);
+
+            // Draw cell border
+            ctx.strokeRect(x, y, cellWidth, cellHeight);
+
+            // Draw cell text
+            ctx.fillStyle = '#000';
+            ctx.fillText(text, x + cellWidth / 2, y + cellHeight / 2);
+        });
     });
+
+    // Export the canvas as a JPEG image
+    const link = document.createElement('a');
+    link.download = 'table_details.jpg';
+    link.href = canvas.toDataURL('image/jpeg');
+    link.click();    
 });
 
