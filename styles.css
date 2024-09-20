@@ -91,6 +91,10 @@ tr:nth-child(even) {
     background-color: #ffcccb; /* Peach color */
 }
 
+.time-light-red {
+    background-color: #de5c59; /* Light Red color */
+}
+
 .weekday-row {
     margin-bottom: 10px;
 }

@@ -63,8 +63,10 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
         // Apply color coding based on time value
         if (time === '8AM to 5PM') {
             timeCell.classList.add('time-light-green');
-        } else if (time === '12PM to 9PM') {
+        } else if (time === '11PM to 8PM') {
             timeCell.classList.add('time-peach');
+        } else if (time === 'WeekOff') {
+            timeCell.classList.add('time-light-red');
         }
         
         newRow.appendChild(timeCell);
