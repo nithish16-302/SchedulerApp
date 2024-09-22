@@ -109,6 +109,10 @@ document.getElementById('exportButton').addEventListener('click', function() {
     canvas.width = canvasWidth;
     canvas.height = canvasHeight;
 
+    // Fill canvas with white background (default is transparent)
+    ctx.fillStyle = '#ffffff'; // Set to white
+    ctx.fillRect(0, 0, canvasWidth, canvasHeight); // Fill entire canvas with white background
+
     // Set up font styles for text drawing
     ctx.font = '16px Arial';
     ctx.textAlign = 'center';
@@ -129,7 +133,7 @@ document.getElementById('exportButton').addEventListener('click', function() {
             const x = cellIndex * cellWidth;
             const y = rowIndex * cellHeight;
 
-            // Get and persist background color
+            // Get and persist background color, default to white if none
             const bgColor = window.getComputedStyle(cell).backgroundColor || '#ffffff';
             ctx.fillStyle = bgColor;
             ctx.fillRect(x, y, cellWidth, cellHeight);  // Draw cell background
