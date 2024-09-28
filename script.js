@@ -72,16 +72,28 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
         newRow.appendChild(timeCell);
     });
 
-    // Add a delete button to the row
-    const deleteCell = document.createElement('td');
-    const deleteButton = document.createElement('button');
-    deleteButton.textContent = 'Delete';
-    deleteButton.classList.add('delete-button');
-    deleteButton.addEventListener('click', function() {
-        tableBody.removeChild(newRow);
-    });
-    deleteCell.appendChild(deleteButton);
-    newRow.appendChild(deleteCell);
+     // Add edit and delete buttons to the row
+     const actionCell = document.createElement('td');
+    
+     // Edit button
+     const editButton = document.createElement('button');
+     editButton.textContent = 'Edit';
+     editButton.classList.add('edit-button');
+     editButton.addEventListener('click', function() {
+         editRow(newRow, name, weekDays);
+     });
+     actionCell.appendChild(editButton);
+     
+     // Delete button
+     const deleteButton = document.createElement('button');
+     deleteButton.textContent = 'Delete';
+     deleteButton.classList.add('delete-button');
+     deleteButton.addEventListener('click', function() {
+         tableBody.removeChild(newRow);
+     });
+     actionCell.appendChild(deleteButton);
+     
+     newRow.appendChild(actionCell);
 
     // Append the new row to the table body
     tableBody.appendChild(newRow);
