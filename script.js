@@ -102,7 +102,62 @@ document.getElementById('scheduleForm').addEventListener('submit', function(even
     document.getElementById('scheduleForm').reset();
 });
 
-// script.js
+// Function to edit the row
+function editRow(row, oldName, oldWeekDays) {
+    // Populate form fields with old data
+    document.getElementById('name').value = oldName;
+    document.getElementById('time-monday').value = oldWeekDays[0].time;
+    document.getElementById('time-tuesday').value = oldWeekDays[1].time;
+    document.getElementById('time-wednesday').value = oldWeekDays[2].time;
+    document.getElementById('time-thursday').value = oldWeekDays[3].time;
+    document.getElementById('time-friday').value = oldWeekDays[4].time;
+    document.getElementById('time-saturday').value = oldWeekDays[5].time;
+    document.getElementById('time-sunday').value = oldWeekDays[6].time;
+
+    // Add a temporary "Update" button to replace the "Add to Schedule" button
+    const submitButton = document.querySelector('#scheduleForm button[type="submit"]');
+    submitButton.textContent = 'Update Schedule';
+
+    // Add event listener for updating the row
+    submitButton.addEventListener('click', function updateRow(event) {
+        event.preventDefault();
+
+        // Get updated values from form
+        const updatedName = document.getElementById('name').value;
+        const updatedWeekDays = [
+            { day: 'Monday', time: document.getElementById('time-monday').value },
+            { day: 'Tuesday', time: document.getElementById('time-tuesday').value },
+            { day: 'Wednesday', time: document.getElementById('time-wednesday').value },
+            { day: 'Thursday', time: document.getElementById('time-thursday').value },
+            { day: 'Friday', time: document.getElementById('time-friday').value },
+            { day: 'Saturday', time: document.getElementById('time-saturday').value },
+            { day: 'Sunday', time: document.getElementById('time-sunday').value }
+        ];
+
+        // Update row with new data
+        row.cells[0].textContent = updatedName;
+        updatedWeekDays.forEach((day, index) => {
+            const cell = row.cells[index + 1]; // Skip the name cell
+            cell.textContent = day.time;
+
+            // Update background color
+            if (day.time === '8AM to 5PM') {
+                cell.classList.add('time-light-green');
+            } else if (day.time === '11PM to 8PM') {
+                cell.classList.add('time-peach');
+            } else if (day.time === 'WeekOff') {
+                cell.classList.add('time-light-red');
+            } else {
+                cell.classList.remove('time-light-green', 'time-peach', 'time-light-red');
+            }
+        });
+
+        // Reset form and submit button
+        document.getElementById('scheduleForm').reset();
+        submitButton.textContent = 'Add to Schedule';
+        submitButton.removeEventListener('click', updateRow); // Remove this update listener
+    }, { once: true }); // Ensure this event listener is called only once
+}
 
 document.getElementById('exportButton').addEventListener('click', function() {
     const table = document.getElementById('scheduleTable');
